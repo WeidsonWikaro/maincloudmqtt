@@ -12,6 +12,8 @@ var options = {
 };
 // var mqtt_url = process.env.CLOUDMQTT_URL || 'mqtt://localhost:1883';
 var topic = process.env.CLOUDMQTT_TOPIC || 'LED';
+var topicStatus = process.env.CLOUDMQTT_TOPIC || 'stra';
+
 var client = mqtt.connect(mqtt_url, options);
 
 /* GET home page. */
@@ -37,18 +39,30 @@ client.on('connect', function() {
   });
 
   router.post('/ligar', function(req, res) {
-  // var msg = 'L'
-    client.publish(topic, 'L', function() {
-      res.writeHead(204, { 'Connection': 'keep-alive' });
-      res.end();
+  
+    const codeComponentResult = req.body.codComponent;
+    var msg = JSON.stringify({
+      codeComponent: codeComponentResult,
+      msg: 'L'
+    });
+    client.publish(topic, msg, function() {
+      // res.writeHead(204, { 'Connection': 'keep-alive' });
+      res.status(200).send({statusCode: 200, mensagem: "Ligado com sucesso", codComponent: codeComponentResult});
+      // res.end();
     });
   });
 
   router.post('/desligar', function(req, res) {
-  // var msg = 'D'
-    client.publish(topic, 'D', function() {
-      res.writeHead(204, { 'Connection': 'keep-alive' });
-      res.end();
+  
+    const codeComponentResult = req.body.codComponent;
+
+  var msg = JSON.stringify({
+    date: new Date().toString(),
+    msg: 'D'
+  });
+    client.publish(topic, msg, function() {
+      res.status(200).send({statusCode: 200, mensagem: "Desligado com sucesso", codComponent: codeComponentResult});
+
     });
   });
 
@@ -64,6 +78,7 @@ client.on('connect', function() {
   });
     
   router.get('/stream', function(req, res) {
+    // Monitoramento
     // send headers for event-stream connection
     // see spec for more information
     res.writeHead(200, {
