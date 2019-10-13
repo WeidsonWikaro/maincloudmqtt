@@ -41,7 +41,7 @@ client.on('connect', function() {
   router.post('/ligar', function(req, res) {
   
     const codeComponentResult = req.body.codComponent;
-
+    console.log('REQUEST BODY TURN ON', req.body);
     var msg = JSON.stringify({
       codeComponent: codeComponentResult,
       msg: 'L'
@@ -54,6 +54,7 @@ client.on('connect', function() {
   });
 
   router.post('/desligar', function(req, res) {
+    console.log('REQUEST BODY TURN OFF', req.body);
   
     const codeComponentResult = req.body.codComponent;
 
