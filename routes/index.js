@@ -11,7 +11,7 @@ var options = {
   password: "8MtNrJ6KUCKm",
 };
 // var mqtt_url = process.env.CLOUDMQTT_URL || 'mqtt://localhost:1883';
-var topic = process.env.CLOUDMQTT_TOPIC || 'test';
+var topic = process.env.CLOUDMQTT_TOPIC || 'LED';
 var client = mqtt.connect(mqtt_url, options);
 
 /* GET home page. */
