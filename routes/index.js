@@ -38,7 +38,7 @@ client.on('connect', function() {
 
   router.post('/ligar', function(req, res) {
   var msg = JSON.stringify({
-    // date: new Date().toString(),
+    date: new Date().toString(),
     msg: 'L'
   });
     client.publish(topic, msg, function() {
@@ -49,7 +49,7 @@ client.on('connect', function() {
 
   router.post('/desligar', function(req, res) {
   var msg = JSON.stringify({
-    // date: new Date().toString(),
+    date: new Date().toString(),
     msg: 'D'
   });
     client.publish(topic, msg, function() {
