@@ -11,7 +11,9 @@ var options = {
   password: "8MtNrJ6KUCKm",
 };
 // var mqtt_url = process.env.CLOUDMQTT_URL || 'mqtt://localhost:1883';
-var topic = process.env.CLOUDMQTT_TOPIC || 'test';
+var topic = process.env.CLOUDMQTT_TOPIC || 'main';
+var topicStatus = process.env.CLOUDMQTT_TOPIC || 'stra';
+
 var client = mqtt.connect(mqtt_url, options);
 
 /* GET home page. */
@@ -38,19 +40,15 @@ client.on('connect', function() {
 
   router.post('/ligar', function(req, res) {
   
+    const codeComponentResult = req.body.codeComponent;
 
-    const codeComp = req;
-    // const codeTest = req;
-    console.log('CHEGOU', req.body);
-
-  var msg = JSON.stringify({
-    date: new Date().toString(),
-    codeComponent: req.body.codigoComponente,
-    msg: 'L'
-  });
+    var msg = JSON.stringify({
+      codeComponent: codeComponentResult,
+      msg: 'L'
+    });
     client.publish(topic, msg, function() {
       // res.writeHead(204, { 'Connection': 'keep-alive' });
-      res.status(200).send({statusCode: 200, mensagem: "SUCESSO"});
+      res.status(200).send({statusCode: 200, mensagem: "Ligado com sucesso"});
       // res.end();
     });
   });
@@ -61,8 +59,8 @@ client.on('connect', function() {
     msg: 'D'
   });
     client.publish(topic, msg, function() {
-      res.writeHead(204, { 'Connection': 'keep-alive' });
-      res.end();
+      res.status(200).send({statusCode: 200, mensagem: "Desligado com sucesso"});
+
     });
   });
 
