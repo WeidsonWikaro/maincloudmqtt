@@ -41,10 +41,7 @@ client.on('connect', function() {
   router.post('/ligar', function(req, res) {
   
     const codeComponentResult = req.body.codComponent;
-    var msg = JSON.stringify({
-      codeComponent: codeComponentResult,
-      msg: 'L'
-    });
+    var msg = 'L'
     client.publish(topic, msg, function() {
       // res.writeHead(204, { 'Connection': 'keep-alive' });
       res.status(200).send({statusCode: 200, mensagem: "Ligado com sucesso", codComponent: codeComponentResult});
@@ -56,10 +53,7 @@ client.on('connect', function() {
   
     const codeComponentResult = req.body.codComponent;
 
-  var msg = JSON.stringify({
-    date: new Date().toString(),
-    msg: 'D'
-  });
+  var msg = 'D'
     client.publish(topic, msg, function() {
       res.status(200).send({statusCode: 200, mensagem: "Desligado com sucesso", codComponent: codeComponentResult});
 
