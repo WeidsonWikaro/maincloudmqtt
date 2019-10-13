@@ -37,13 +37,21 @@ client.on('connect', function() {
   });
 
   router.post('/ligar', function(req, res) {
+  
+
+    const codeComp = req;
+    // const codeTest = req;
+    console.log('CHEGOU', req.body);
+
   var msg = JSON.stringify({
     date: new Date().toString(),
+    codeComponent: req.body.codigoComponente,
     msg: 'L'
   });
     client.publish(topic, msg, function() {
-      res.writeHead(204, { 'Connection': 'keep-alive' });
-      res.end();
+      // res.writeHead(204, { 'Connection': 'keep-alive' });
+      res.status(200).send({statusCode: 200, mensagem: "SUCESSO"});
+      // res.end();
     });
   });
 
@@ -70,6 +78,7 @@ client.on('connect', function() {
   });
     
   router.get('/stream', function(req, res) {
+    // Monitoramento
     // send headers for event-stream connection
     // see spec for more information
     res.writeHead(200, {
