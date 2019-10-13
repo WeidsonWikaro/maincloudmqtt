@@ -11,9 +11,7 @@ var options = {
   password: "8MtNrJ6KUCKm",
 };
 // var mqtt_url = process.env.CLOUDMQTT_URL || 'mqtt://localhost:1883';
-var topic = process.env.CLOUDMQTT_TOPIC || 'main';
-var topicStatus = process.env.CLOUDMQTT_TOPIC || 'stra';
-
+var topic = process.env.CLOUDMQTT_TOPIC || 'test';
 var client = mqtt.connect(mqtt_url, options);
 
 /* GET home page. */
@@ -39,32 +37,18 @@ client.on('connect', function() {
   });
 
   router.post('/ligar', function(req, res) {
-  
-    const codeComponentResult = req.body.codComponent;
-    console.log('REQUEST BODY TURN ON', req.body);
-    var msg = JSON.stringify({
-      codeComponent: codeComponentResult,
-      msg: 'L'
-    });
-    client.publish(topic, msg, function() {
-      // res.writeHead(204, { 'Connection': 'keep-alive' });
-      res.status(200).send({statusCode: 200, mensagem: "Ligado com sucesso", codComponent: codeComponentResult});
-      // res.end();
+  // var msg = 'L'
+    client.publish(topic, 'L', function() {
+      res.writeHead(204, { 'Connection': 'keep-alive' });
+      res.end();
     });
   });
 
   router.post('/desligar', function(req, res) {
-    console.log('REQUEST BODY TURN OFF', req.body);
-  
-    const codeComponentResult = req.body.codComponent;
-
-  var msg = JSON.stringify({
-    date: new Date().toString(),
-    msg: 'D'
-  });
-    client.publish(topic, msg, function() {
-      res.status(200).send({statusCode: 200, mensagem: "Desligado com sucesso", codComponent: codeComponentResult});
-
+  // var msg = 'D'
+    client.publish(topic, 'D', function() {
+      res.writeHead(204, { 'Connection': 'keep-alive' });
+      res.end();
     });
   });
 
@@ -80,7 +64,6 @@ client.on('connect', function() {
   });
     
   router.get('/stream', function(req, res) {
-    // Monitoramento
     // send headers for event-stream connection
     // see spec for more information
     res.writeHead(200, {
