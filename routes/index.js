@@ -3,12 +3,12 @@ var mqtt = require('mqtt');
 var router = express.Router();
 var url = require('url');
 
-var mqtt_url = process.env.CLOUDMQTT_URL || 'mqtt://soldier.cloudmqtt.com';
+var mqtt_url = process.env.CLOUDMQTT_URL || 'mqtt://m15.cloudmqtt.com';
 var options = {
-  port: 10576,
+  port: 18384,
   clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
-  username: "zoffbyyx",
-  password: "8MtNrJ6KUCKm",
+  username: "onerxopb",
+  password: "jJJ-T3iujGQo",
 };
 // var mqtt_url = process.env.CLOUDMQTT_URL || 'mqtt://localhost:1883';
 var topic = process.env.CLOUDMQTT_TOPIC || 'LED';
